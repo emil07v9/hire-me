@@ -1,46 +1,33 @@
-# Getting Started with Create React App
+Nursery Attendance Management App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a very simple React and TypeScript application that allows a nursery to manage the attendance of children in a group. The application shows a list of children with pagination, checkin and checkout functionality.
 
-## Available Scripts
+Before running the project make sure you have the following installed:
 
-In the project directory, you can run:
+- Node.js (v16.x or later)
+- npm (v7.x or later)
 
-### `npm start`
+Instructions for setup:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Clone this repository
+2. Install dependencies by running: npm install
+3. Create .env file and add the following line: REACT_APP_ACCESS_TOKEN=1127a03c-ed76-41d5-9058-f9ca105c41cf
+4. Run the application with: npm start
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Design decisions:
 
-### `npm test`
+1. Components
+   I have divided the application into reusable components like ChildCard and ChildrenList.
+2. Types
+   All typescript interfaces are placed in a 'types' folder for a more clear overview
+3. API Calls
+   I use Axios to make HTTP requests to the API's. The API token is stored in the .env file for security reasons. Note: In this project, I am still sharing the API access token in the setup instructions. While this works for the purpose of this task, in a real-world, professional setting, it is of course important to avoid exposing sensitive information like API tokens in any public repository or README file.
+4. Pagination
+   To enhance the performance and the general user experience I have decided to choose a pagination. This makes it simple and useable.
+5. Check-in/out
+   The app uses the API to check children in and out, handling the API calls when the buttons are clicked.
+   The status is tracked locally to disable/enable buttons accordingly.
+6. State Management
+   React's useState manages the states of children and their check-in status. I fetch the list of children when the component i mounted using useEffect.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+   Design note: The design is intentionally kept simple, because the assignment focused on functionality over visual design. The main priority was making the interface visually comprehensible while maintaining clarity, so that users can easily manage the attendance of children. All styling has been applied using TailwindCSS.
