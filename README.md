@@ -19,11 +19,11 @@ Design decisions:
 1. Components
    I have divided the application into reusable components like ChildCard and ChildrenList.
 2. Types
-   All typescript interfaces are placed in a 'types' folder for a more clear overview
+   All typescript interfaces are placed in a 'types' folder for a more clear overview.
 3. API Calls
    I use Axios to make HTTP requests to the API's. The API token is stored in the .env file for security reasons. Note: In this project, I am still sharing the API access token in the setup instructions. While this works for the purpose of this task, in a real-world, professional setting, it is of course important to avoid exposing sensitive information like API tokens in any public repository or README file.
 4. Pagination
-   To enhance the performance and the general user experience I have decided to choose a pagination. This makes it simple and useable.
+   To enhance the performance and the general user experience I have decided to choose a pagination. This makes the application more simple and useable.
 5. Check-in/out
    The app uses the API to check children in and out, handling the API calls when the buttons are clicked.
    The status is tracked locally to disable/enable buttons accordingly.
