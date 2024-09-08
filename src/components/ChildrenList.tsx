@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ChildCard from "./ChildCard";
+import ListPagination from "./ListPagination";
 import { Child } from "../types/childInterface";
 
 const ChildrenList: React.FC = () => {
+  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
   const [children, setChildren] = useState<Child[]>([]);
-  const accessToken = "1127a03c-ed76-41d5-9058-f9ca105c41cf";
   const [checkedInChildren, setCheckedInChildren] = useState<Set<string>>(
     new Set()
   );
+  const [currentPage, setCurrentPage] = useState(1);
+  const [childrenPerPage] = useState(10);
 
   useEffect(() => {
     const fetchChildren = async () => {
@@ -23,7 +26,7 @@ const ChildrenList: React.FC = () => {
             },
           }
         );
-        console.log("API Response:", response.data);
+        // console.log("API Response:", response.data);
         setChildren(
           response.data.children.map((child: any) => ({
             childId: child.childId,
@@ -39,7 +42,15 @@ const ChildrenList: React.FC = () => {
     fetchChildren();
   }, [accessToken]);
 
+  // Check-in children function
   const handleCheckin = async (id: string) => {
+    const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
+
+    if (!accessToken) {
+      console.error("Access token is missing.");
+      return;
+    }
+
     try {
       const pickupTime = "16:00";
 
@@ -63,7 +74,15 @@ const ChildrenList: React.FC = () => {
     }
   };
 
+  // Check-out children function
   const handleCheckout = async (id: string) => {
+    const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
+    // Early exit if no token
+    if (!accessToken) {
+      console.error("Access token is missing.");
+      return;
+    }
+
     try {
       const response = await axios.post(
         `https://app.famly.co/api/v2/children/${id}/checkout`,
@@ -88,9 +107,13 @@ const ChildrenList: React.FC = () => {
     }
   };
 
+  const indexOfLastChild = currentPage * childrenPerPage;
+  const indexofFirstChild = indexOfLastChild - childrenPerPage;
+  const currentChildren = children.slice(indexofFirstChild, indexOfLastChild);
+
   return (
     <div>
-      {children.map((child) => (
+      {currentChildren.map((child) => (
         <ChildCard
           key={child.childId}
           id={child.childId}
@@ -100,6 +123,12 @@ const ChildrenList: React.FC = () => {
           onCheckout={handleCheckout}
         />
       ))}
+      <ListPagination
+        totalItems={children.length}
+        itemsPerPage={childrenPerPage}
+        currentPage={currentPage}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 };

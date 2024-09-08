@@ -10,8 +10,8 @@ const ChildCard: React.FC<ChildCardProps> = ({
   onCheckout,
 }) => {
   return (
-    <div className="bg-cardGrey rounded-xl max-w-96 md:grid grid-cols-3">
-      <p>{name}</p>
+    <div className="bg-lightGrey rounded-xl mb-2 px-4 py-6 max-w-prose md:grid grid-cols-3">
+      <p className="mb-2 md:mb-0 md:flex items-center">{name}</p>
       <Button
         onClick={() => onCheckin(id)}
         disabled={checkedIn}
